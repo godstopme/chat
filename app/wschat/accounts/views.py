@@ -7,8 +7,9 @@ from django.views.generic import CreateView
 
 def redirect_authenticated(func):
     def decorator(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
-            return redirect('home')
+        if request.user.is_authenticated:
+            return redirect('chat')
+        return func(self, request, *args, **kwargs)
 
     return decorator
 
@@ -35,7 +36,7 @@ class SignUpView(CreateView):
 
         self.login_user(username, password)
 
-        return redirect('home')
+        return redirect('chat')
 
     def login_user(self, username, password):
         user = authenticate(username=username, password=password)
