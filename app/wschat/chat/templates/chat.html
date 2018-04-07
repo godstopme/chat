@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block css %}<link rel="stylesheet" type="text/css" href="{% static 'chat/style.css' %}">{% endblock %}
+{% block title %}Chat Room{% endblock %}
+
+{% block content %}
+    <section class="chat">
+        <div id="chat-messages"></div>
+        <form id="chat-input-form">
+            <input class="chat-input-form__message" type="text" name="message">
+            <button class="chat-input-form__send-button">send message</button>
+        </form>
+    </section>
+{% endblock %}
