@@ -12,4 +12,44 @@
             <button class="chat-input-form__send-button">send message</button>
         </form>
     </section>
+    <textarea id="chat-log" cols="100" rows="20"></textarea><br/>
+    <input id="chat-message-input" type="text" size="100"/><br/>
+    <input id="chat-message-submit" type="button" value="Send"/>
+
+    <script>
+        const append_message = (data) => {
+            // . . . . . .
+            const message_div = '<ul class="chat-message">' +
+                                              '     <li class="chat_message__username">' + data.username + '</li>' +
+                                              '     <li class="chat_message__message">' + data.message + '</li>' +
+                                              '     <li class="chat_message__datetime">' + data.datetime + '</li>' +
+                                              '</ul>'
+            $('#chat-messages').append(message_div)
+        }
+
+        let socket = new WebSocket('ws://' + window.location.host + '/')
+
+        socket.onmessage = (e) => {
+            const data = JSON.parse(e.data)
+            
+            append_message(data)
+        }
+        socket.onclose = (e) => {
+            console.error('Unexpected error')
+        }
+
+        $('#chat-input-form__message').focus()
+        $('chat-input-form__send-button').click((e) => {
+            e.preventDefault()
+            
+            const userInput = $('#chat-message-input').value
+
+            if (userInput !== '') {
+                socket.send(JSON.stringify({
+                    'message': message
+                }))
+                $('#chat-message-input').value = ''
+            }
+        }
+    </script>
 {% endblock %}
