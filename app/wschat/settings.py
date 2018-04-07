@@ -43,6 +43,7 @@ DJANGO_APPS = [
 ]
 
 PROJECT_APPS = [
+    'wschat.accounts',
     'wschat.chat',
 ]
 
