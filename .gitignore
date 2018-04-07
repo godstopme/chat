@@ -22,3 +22,4 @@ htmlcov/*
 [Dd]ist/
 [Dd]ependency/
 Pipfile.lock
+*.sqlite3
