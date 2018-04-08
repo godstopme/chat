@@ -5,26 +5,29 @@
 {% block title %}Chat Room{% endblock %}
 
 {% block content %}
-    <section class="chat">
+    <section id="chat">
         <div id="chat-messages"></div>
         <form id="chat-input-form">
-            <input class="chat-input-form__message" type="text" name="message">
+            <input class="chat-input-form__message" type="text">
             <button class="chat-input-form__send-button">send message</button>
         </form>
     </section>
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br/>
-    <input id="chat-message-input" type="text" size="100"/><br/>
-    <input id="chat-message-submit" type="button" value="Send"/>
 
     <script>
+        const $ = (selector) => document.querySelector(selector) // jquery for poor
+        const cropDatetime = (datetime) =>{
+            const time = datetime.split('T0')[1]
+
+            return time.slice(0, time.lastIndexOf('.'))
+        }
         const append_message = (data) => {
             // . . . . . .
             const message_div = '<ul class="chat-message">' +
                                               '     <li class="chat_message__username">' + data.username + '</li>' +
                                               '     <li class="chat_message__message">' + data.message + '</li>' +
-                                              '     <li class="chat_message__datetime">' + data.datetime + '</li>' +
+                                              '     <li class="chat_message__datetime">' + cropDatetime(data.datetime) + '</li>' +
                                               '</ul>'
-            $('#chat-messages').append(message_div)
+            $('#chat-messages').insertAdjacentHTML('beforeend', message_div)
         }
 
         let socket = new WebSocket('ws://' + window.location.host + '/')
@@ -33,22 +36,23 @@
             const data = JSON.parse(e.data)
             
             append_message(data)
+            $('#chat-messages').scrollTop = $('#chat-messages').scrollHeight
         }
         socket.onclose = (e) => {
             console.error('Unexpected error')
         }
 
-        $('#chat-input-form__message').focus()
-        $('chat-input-form__send-button').click((e) => {
+        $('#chat-input-form .chat-input-form__message').focus()
+        $('#chat-input-form .chat-input-form__send-button').onclick = (e) => {
             e.preventDefault()
             
-            const userInput = $('#chat-message-input').value
+            const userInput = $('#chat-input-form .chat-input-form__message').value
 
             if (userInput !== '') {
                 socket.send(JSON.stringify({
-                    'message': message
+                    'message': userInput
                 }))
-                $('#chat-message-input').value = ''
+                $('#chat-input-form .chat-input-form__message').value = ''
             }
         }
     </script>
