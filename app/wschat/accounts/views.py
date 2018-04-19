@@ -1,8 +1,9 @@
-from django.contrib.auth import authenticate
-from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect
-from django.views.generic import CreateView
+from rest_framework.generics import CreateAPIView, GenericAPIView
+from rest_framework.response import Response
+
+from .serializers import LoginSerializer
+from .serializers import SignUpSerializer
 
 
 def redirect_authenticated(func):
@@ -14,30 +15,15 @@ def redirect_authenticated(func):
     return decorator
 
 
-class SignUpView(CreateView):
-    form_class = UserCreationForm
-    template_name = 'registration/signup.html'
+class SignUpView(CreateAPIView):
+    serializer_class = SignUpSerializer
 
-    @redirect_authenticated
-    def get(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
 
-    @redirect_authenticated
+class LoginView(GenericAPIView):
+    serializer_class = LoginSerializer
+
     def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
-    def form_valid(self, form):
-        self.object = form.save()
-
-        data = form.cleaned_data
-
-        username = data.get('username')
-        password = data.get('password1')
-
-        self.login_user(username, password)
-
-        return redirect('chat')
-
-    def login_user(self, username, password):
-        user = authenticate(username=username, password=password)
-        login(self.request, user)
+        return Response(serializer.data)

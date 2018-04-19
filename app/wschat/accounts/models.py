@@ -1,12 +1,12 @@
 from datetime import datetime
 from datetime import timedelta
 
-from jose import jwt
-
-from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
+from django.db import models
+from jose import jwt
+
 from .managers import UserManager
 
 
