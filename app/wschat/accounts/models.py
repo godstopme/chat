@@ -1,11 +1,8 @@
-from datetime import datetime
-from datetime import timedelta
+import uuid
 
-from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
-from jose import jwt
 
 from .managers import UserManager
 
@@ -23,15 +20,21 @@ class User(AbstractBaseUser, PermissionsMixin):
     created_datetime = models.DateTimeField(auto_now_add=True)
     updated_datetime = models.DateTimeField(auto_now=True)
 
-    @property
-    def token(self):
-        dt = datetime.now() + timedelta(days=60)
-        payload = {
-            'id': self.pk,
-            'expires': int(dt.timestamp()),
-        }
+    secret_key = models.UUIDField(primary_key=False, default=uuid.uuid4, editable=False)
 
-        return jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
+    def get_secret_key(self):
+        return self.secret_key
+
+    def regenerate_user_secret(self):
+        self.secret_key = uuid.uuid4()
+
+        self.save()
+
+    def login(self):
+        self.regenerate_user_secret()
+
+    def logout(self):
+        self.regenerate_user_secret()
 
     def get_full_name(self):
         return self.nickname

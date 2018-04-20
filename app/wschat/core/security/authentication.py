@@ -1,9 +1,10 @@
-from django.conf import settings
 from django.contrib.auth import get_user_model
 from jose import jwt
 from rest_framework import exceptions
 from rest_framework.authentication import BaseAuthentication
 from rest_framework.authentication import get_authorization_header
+
+from .token import parse as parse_token
 
 
 class TokenAuthentication(BaseAuthentication):
@@ -17,7 +18,7 @@ class TokenAuthentication(BaseAuthentication):
             return None
 
         try:
-            token_payload = jwt.decode(token, settings.SECRET_KEY, )
+            token_payload = parse_token(token)
         except jwt.JWTError as e:
             raise exceptions.AuthenticationFailed(str(e))
 
@@ -29,7 +30,7 @@ class TokenAuthentication(BaseAuthentication):
         try:
             user = user_model.objects.get(id=payload['id'], is_active=True)
         except user_model.DoesNotExist:
-            raise exceptions.AuthenticationFailed('Invalid signature.')
+            raise exceptions.AuthenticationFailed('User does not exists.')
 
         if not user.is_active:
             raise exceptions.AuthenticationFailed('User is disabled.')

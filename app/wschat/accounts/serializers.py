@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
+from wschat.core.security.token import generate as generate_token
 from .models import User
 
 
@@ -11,13 +12,11 @@ class SignUpSerializer(serializers.ModelSerializer):
         validators=[UniqueValidator(queryset=User.objects.all())]
     )
     password = serializers.CharField(required=True, min_length=8, write_only=True)
-    token = serializers.CharField(max_length=255, read_only=True)
 
     class Meta:
         model = User
         fields = [
             'id', 'nickname', 'password',
-            'token',
         ]
 
     def create(self, validated_data):
@@ -49,11 +48,13 @@ class LoginSerializer(serializers.Serializer):
 
         if user is None or not user.is_active:
             raise serializers.ValidationError('A user with this nickname/password was not found')
+        user.login()
+        token = generate_token(id=user.id, nickname=nickname, username_field=user.USERNAME_FIELD)
 
         return {
             'nickname': nickname,
             'password': password,
-            'token': user.token,
+            'token': token,
         }
 
 
@@ -63,11 +64,8 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'nickname', 'password', 'token',
-            'is_staff', 'created_datetime',
-        ]
-        read_only_fields = [
-            'token',
+            'nickname', 'password', 'is_staff',
+            'created_datetime', 'updated_datetime',
         ]
 
     def update(self, instance, validated_data):
