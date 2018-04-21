@@ -5,7 +5,7 @@ from datetime import timedelta
 from django.contrib.auth import get_user_model
 from jose import jwt
 
-JWT_EXP_DURATION = timedelta(hours=1)
+JWT_EXP_DURATION = timedelta(days=1)
 
 
 def get_user_key(payload):

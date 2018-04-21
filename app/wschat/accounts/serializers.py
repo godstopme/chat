@@ -65,7 +65,7 @@ class LoginSerializer(serializers.Serializer):
 
 class RefreshLoginSerializer(serializers.Serializer):
     required_token_fields = ['nickname', 'iat']
-    refresh_limit = timedelta(days=1)
+    refresh_limit = timedelta(weeks=2)
 
     token = serializers.CharField(max_length=512)
 
