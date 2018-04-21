@@ -14,7 +14,7 @@ def get_user_key(payload):
     return user.get_secret_key()
 
 
-def generate(expiration_duration=JWT_EXP_DURATION, id=None, **kwargs):
+def generate(expiration_duration=JWT_EXP_DURATION, id=None, reset_iat=True, **kwargs):
     assert id is not None, 'required argument: id'
 
     payload = copy(kwargs)
@@ -22,7 +22,9 @@ def generate(expiration_duration=JWT_EXP_DURATION, id=None, **kwargs):
     utcnow = datetime.utcnow()
 
     payload['id'] = id
-    payload['iat'] = utcnow
+
+    if reset_iat:
+        payload['iat'] = utcnow
     payload['exp'] = utcnow + expiration_duration
 
     user_secret_key = get_user_key(payload)

@@ -1,8 +1,13 @@
+from datetime import datetime
+from datetime import timedelta
+
 from django.contrib.auth import authenticate
+from jose import jwt
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
 from wschat.core.security.token import generate as generate_token
+from wschat.core.security.token import parse as parse_token
 from .models import User
 
 
@@ -28,7 +33,7 @@ class LoginSerializer(serializers.Serializer):
         min_length=3, max_length=255
     )
     password = serializers.CharField(min_length=8, write_only=True)
-    token = serializers.CharField(max_length=255, read_only=True)
+    token = serializers.CharField(max_length=512, read_only=True)
 
     def validate_nickname(self, value):
         if not value:
@@ -55,6 +60,48 @@ class LoginSerializer(serializers.Serializer):
             'nickname': nickname,
             'password': password,
             'token': token,
+        }
+
+
+class RefreshLoginSerializer(serializers.Serializer):
+    required_token_fields = ['nickname', 'iat']
+    refresh_limit = timedelta(days=1)
+
+    token = serializers.CharField(max_length=512)
+
+    def validate_token_payload(self, token):
+        try:
+            payload = parse_token(token)
+
+            if any(map(lambda x: x not in payload, self.required_token_fields)):
+                raise KeyError
+        except jwt.JWTError as e:
+            raise serializers.ValidationError(str(e))
+        except KeyError:
+            raise serializers.ValidationError('Invalid token payload.')
+
+        return payload
+
+    def validate(self, data):
+        token = data.pop('token')
+
+        payload = self.validate_token_payload(token)
+
+        try:
+            user = User.objects.get(nickname=payload['nickname'])
+        except User.DoesNotExist:
+            raise serializers.ValidationError('User does not exist.')
+
+        if not user.is_active:
+            raise serializers.ValidationError('User is not active.')
+
+        refresh_expiration_datetime = datetime.utcfromtimestamp(payload['iat']) + self.refresh_limit
+
+        if refresh_expiration_datetime < datetime.utcnow():
+            raise serializers.ValidationError('Token refresh has expired.')
+
+        return {
+            'token': generate_token(reset_iat=False, **payload),
         }
 
 

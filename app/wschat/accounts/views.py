@@ -1,4 +1,3 @@
-from django.shortcuts import redirect
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.generics import CreateAPIView
@@ -13,17 +12,9 @@ from rest_framework.viewsets import GenericViewSet
 
 from .models import User
 from .serializers import LoginSerializer
+from .serializers import RefreshLoginSerializer
 from .serializers import SignUpSerializer
 from .serializers import UserSerializer
-
-
-def redirect_authenticated(func):
-    def decorator(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect('chat')
-        return func(self, request, *args, **kwargs)
-
-    return decorator
 
 
 class SignUpView(CreateAPIView):
@@ -40,6 +31,10 @@ class AuthUserView(GenericAPIView):
 
 class LoginView(AuthUserView):
     serializer_class = LoginSerializer
+
+
+class RefreshLoginView(AuthUserView):
+    serializer_class = RefreshLoginSerializer
 
 
 class LogoutView(APIView):
