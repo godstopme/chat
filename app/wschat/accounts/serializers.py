@@ -48,7 +48,7 @@ class LoginSerializer(serializers.Serializer):
 
         if user is None or not user.is_active:
             raise serializers.ValidationError('A user with this nickname/password was not found')
-        user.login()
+        # user.login()
         token = generate_token(id=user.id, nickname=nickname, username_field=user.USERNAME_FIELD)
 
         return {

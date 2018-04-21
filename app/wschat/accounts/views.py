@@ -1,4 +1,5 @@
 from django.shortcuts import redirect
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.generics import CreateAPIView
 from rest_framework.generics import GenericAPIView
@@ -7,6 +8,7 @@ from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.mixins import UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 
 from .models import User
@@ -28,14 +30,28 @@ class SignUpView(CreateAPIView):
     serializer_class = SignUpSerializer
 
 
-class LoginView(GenericAPIView):
-    serializer_class = LoginSerializer
-
-    def post(self, request, *args, **kwargs):
+class AuthUserView(GenericAPIView):
+    def post(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         return Response(serializer.data)
+
+
+class LoginView(AuthUserView):
+    serializer_class = LoginSerializer
+
+
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        request.user.logout()
+        response_data = {
+            'detail': 'Logged out.',
+        }
+
+        return Response(data=response_data, status=status.HTTP_204_NO_CONTENT)
 
 
 class UsersViewSet(GenericViewSet, ListModelMixin, RetrieveModelMixin, UpdateModelMixin):

@@ -21,6 +21,8 @@ class TokenAuthentication(BaseAuthentication):
             token_payload = parse_token(token)
         except jwt.JWTError as e:
             raise exceptions.AuthenticationFailed(str(e))
+        except KeyError:
+            raise exceptions.AuthenticationFailed('Invalid token payload.')
 
         return self.authenticate_credentials(token, token_payload)
 
