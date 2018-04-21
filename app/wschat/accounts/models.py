@@ -23,7 +23,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     secret_key = models.UUIDField(primary_key=False, default=uuid.uuid4, editable=False)
 
     def get_secret_key(self):
-        return self.secret_key
+        return str(self.secret_key)
 
     def regenerate_user_secret(self):
         self.secret_key = uuid.uuid4()
