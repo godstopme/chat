@@ -1,11 +1,30 @@
-import os
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-
-SECRET_KEY = 'ol6m-3&yn5*n9p69!@a+9j55*44cwry(lisw(m!qz5wc2qfqw$'
+from os.path import abspath
+from os.path import dirname
+from os.path import join
 
 DEBUG = True
+
+RUN_DIR_NAME = 'run'
+
+STATIC_DIR_NAME = f'static/{"build" if DEBUG else "dist"}'
+
+MEDIA_DIR_NAME = 'media'
+
+DATA_DIR_NAME = 'data'
+
+APP_DIR = dirname(abspath(__file__))
+
+PROJECT_DIR = dirname(APP_DIR)
+
+RUN_DIR = join(PROJECT_DIR, RUN_DIR_NAME)
+
+STATIC_DIR = join(RUN_DIR, STATIC_DIR_NAME)
+
+MEDIA_DIR = join(RUN_DIR, MEDIA_DIR_NAME)
+
+DATA_DIR = join(RUN_DIR, DATA_DIR_NAME)
+
+SECRET_KEY = 'ol6m-3&yn5*n9p69!@a+9j55*44cwry(lisw(m!qz5wc2qfqw$'
 
 ALLOWED_HOSTS = []
 
@@ -23,8 +42,8 @@ DJANGO_APPS = [
 ]
 
 PROJECT_APPS = [
-    'wschat.accounts',
-    'wschat.chat',
+    'accounts',
+    'chat',
 ]
 
 INSTALLED_APPS = VENDOR_APPS + DJANGO_APPS + PROJECT_APPS
@@ -39,13 +58,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'wschat.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(PROJECT_DIR, 'templates'),
+            join(APP_DIR, 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -59,9 +78,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'wschat.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
-ASGI_APPLICATION = "wschat.routing.application"
+ASGI_APPLICATION = "routing.application"
 
 CHANNEL_LAYERS = {
     'default': {
@@ -75,7 +94,7 @@ CHANNEL_LAYERS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': join(DATA_DIR, 'db.sqlite3'),
     }
 }
 
@@ -98,7 +117,7 @@ AUTH_USER_MODEL = 'accounts.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'wschat.core.security.authentication.TokenAuthentication',
+        'core.security.authentication.TokenAuthentication',
     ),
 }
 

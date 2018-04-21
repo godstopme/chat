@@ -6,8 +6,8 @@ from jose import jwt
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
-from wschat.core.security.token import generate as generate_token
-from wschat.core.security.token import parse as parse_token
+from core.security.token import generate as generate_token
+from core.security.token import parse as parse_token
 from .models import User
 
 

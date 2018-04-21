@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from wschat.core.viewsets import GenericApiViewSet
+from core.viewsets import GenericApiViewSet
 from .models import User
 from .serializers import LoginSerializer
 from .serializers import RefreshLoginSerializer

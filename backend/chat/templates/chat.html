@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
 
 {% load static %}
-{% block css %}<link rel="stylesheet" type="text/css" href="{% static 'chat/style.css' %}">{% endblock %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'chat/style.css' %}">{% endblock %}
 {% block title %}Chat Room{% endblock %}
 
 {% block content %}
-    <section id="chat">
-        <div id="chat-messages"></div>
-        <form id="chat-input-form">
-            <input class="chat-input-form__message" type="text">
-            <button class="chat-input-form__send-button">send message</button>
-        </form>
-    </section>
+<section id="chat">
+    <div id="chat-messages"></div>
+    <form id="chat-input-form">
+        <input class="chat-input-form__message" type="text">
+        <button class="chat-input-form__send-button">send message</button>
+    </form>
+</section>
 
-    <script>
+<script>
         const $ = (selector) => document.querySelector(selector) // jquery for poor
         const cropDatetime = (datetime) =>{
             const time = datetime.split('T0')[1]
@@ -55,5 +56,6 @@
                 $('#chat-input-form .chat-input-form__message').value = ''
             }
         }
-    </script>
+
+</script>
 {% endblock %}
