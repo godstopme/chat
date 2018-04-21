@@ -9,6 +9,7 @@ channels = "*"
 channels-redis = "*"
 python-jose = "*"
 djangorestframework = "*"
+unidecode = "*"
 
 [dev-packages]
 
