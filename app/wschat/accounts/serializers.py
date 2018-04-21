@@ -112,7 +112,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'nickname', 'password', 'is_staff',
-            'created_datetime', 'updated_datetime',
+            'is_active', 'created_datetime', 'updated_datetime',
         ]
 
     def update(self, instance, validated_data):
