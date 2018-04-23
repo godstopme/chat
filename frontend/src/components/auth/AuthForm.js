@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Form, Button, ControlLabel} from 'react-bootstrap'
 import FieldGroup, {PasswordFieldGroup} from '../common/forms/FieldGroup'
 
+
 const submitForm = e => {
   e.preventDefault()
 
@@ -36,6 +37,7 @@ export default class AuthForm extends Component {
         <FieldGroup type="text" placeholder="nickname" name="nickname"/>
         <PasswordFieldGroup/>
         <Button type="submit" style={{width: "100%"}}>Submit</Button>
+        <Spinner innerText="loading..."/>
       </Form>
     )
   }
