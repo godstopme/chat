@@ -38,7 +38,7 @@ const round = keyframes`
   }
 `
 
-const Spinner = ({className, innerText}) =>
+const Spinner = ({className, innerText = 'Loading...'}) =>
   <div className={className}>
     {innerText}
   </div>

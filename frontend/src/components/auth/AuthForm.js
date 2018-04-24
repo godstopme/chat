@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
-import {Form, Button, ControlLabel} from 'react-bootstrap'
+import {Button, ControlLabel, Form} from 'react-bootstrap'
 import FieldGroup, {PasswordFieldGroup} from '../common/forms/FieldGroup'
-
 
 const submitForm = e => {
   e.preventDefault()
@@ -32,12 +31,11 @@ export default class AuthForm extends Component {
     const {redirectBlock, children} = this.props
 
     return (
-      <Form horizontal={true} style={{width: "50%", margin: "0 auto"}} onSubmit={this.onFormSubmit}>
+      <Form horizontal={true} style={{width: '50%', margin: '0 auto'}} onSubmit={this.onFormSubmit}>
         <ControlLabel>{children}</ControlLabel>
         <FieldGroup type="text" placeholder="nickname" name="nickname"/>
         <PasswordFieldGroup/>
-        <Button type="submit" style={{width: "100%"}}>Submit</Button>
-        <Spinner innerText="loading..."/>
+        <Button type="submit" style={{width: '100%'}}>Submit</Button>
       </Form>
     )
   }

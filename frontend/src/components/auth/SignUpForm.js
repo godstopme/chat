@@ -1,10 +1,9 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
 import AuthForm from './AuthForm'
+import ConcealingSpinner from '../common/ConcealingSpinner'
 
 export default () => (
-  <div>
+  <ConcealingSpinner>
     <AuthForm/>
-    Sign Up!!
-  </div>
+  </ConcealingSpinner>
 )

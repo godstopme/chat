@@ -1,5 +1,5 @@
 import React from 'react'
-import {FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
+import {ControlLabel, FormControl, FormGroup} from 'react-bootstrap'
 
 const FieldGroup = ({id, label, validationState = null, ...controlProps}) =>
   <FormGroup controlId={id ? id : null} validationState={validationState}>
@@ -9,6 +9,6 @@ const FieldGroup = ({id, label, validationState = null, ...controlProps}) =>
 
 
 export const PasswordFieldGroup = ({withLabel = false, ...props}) =>
-  <FieldGroup label={withLabel && "password"} type="password" placeholder="password" name="password" {...props} />
+  <FieldGroup label={withLabel && 'password'} type="password" placeholder="password" name="password" {...props} />
 
 export default FieldGroup

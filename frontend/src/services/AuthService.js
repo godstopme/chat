@@ -6,7 +6,7 @@ export const signup = credentials => axios.post('/api/accounts/users/signup/', c
 
 export const login = ({nickname, password}) => {
   return (!isAuthenticated()) ? (
-    axios.post('/api/account/user/login/', {nickname, password})
+    axios.post('/api/accounts/user/login/', {nickname, password})
       .then(response => {
         const {token} = response.data
         localStorage.token = token
@@ -16,7 +16,7 @@ export const login = ({nickname, password}) => {
       })
   ) : (
     Promise.resolve({
-      token: localStorage.token
+      token: localStorage.token,
     })
   )
 }
