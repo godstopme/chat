@@ -1,7 +1,7 @@
 import React from 'react'
 import {Route, Switch} from 'react-router-dom'
 import AuthenticatedRoute from '../common/AuthenticatedRoute'
-import MainPage from '../containers/MainPage'
+import MainPage from './MainPage'
 import SignUpForm from '../components/auth/SignUpForm'
 import LoginForm from '../components/auth/LoginForm'
 import {isAuthenticated} from '../services/AuthService'

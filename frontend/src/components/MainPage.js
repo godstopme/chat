@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import ChatRoom from './ChatRoom'
+import Channel from './channel'
 
 class MainPage extends Component {
   render() {
     return (
-     <ChatRoom/>
+     <Channel/>
     )
   }
 }

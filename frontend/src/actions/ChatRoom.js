@@ -12,7 +12,6 @@ const userChatRoomSocket = (user, chatRoom, dispatch) => {
       type: CHAT_ROOM_USER_CONNECTED,
       payload: {user, chatRoom, socket}
     })
-    socket.send('{"test": "test"}')
   }
 
   socket.onmessage = data => {
@@ -30,7 +29,7 @@ export const connectUserToChatRoom = ({user, chatRoom}) => (dispatch) => {
     type: USER_SELECTED_CHAT_ROOM,
     payload: {user, chatRoom},
   })
-  console.log('sraking here')
+
   userChatRoomSocket(user, chatRoom, dispatch)
 }
 
