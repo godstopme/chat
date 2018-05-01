@@ -20,5 +20,14 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://127.0.0.1:8000/"
+  "proxy": {
+    "/": {
+      "target": "ws://127.0.0.1:8000",
+      "ws": true
+    },
+    "/api": {
+      "target": "http://127.0.0.1:8000",
+      "ws": false
+    }
+  }
 }

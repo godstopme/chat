@@ -1,3 +1,5 @@
+import {USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAILED} from '../constants/auth/login'
+
 const initialState = {
   failed: false,
   loggingIn: false,
@@ -7,18 +9,18 @@ const initialState = {
 
 export const userLogin = (state = initialState, action) => {
   switch (action.type) {
-    case 'USER_LOGIN_REQUEST':
+    case USER_LOGIN_REQUEST:
       return {
         ...state,
         loggingIn: true,
       }
-    case 'USER_LOGIN_SUCCESS':
+    case USER_LOGIN_SUCCESS:
       return {
         ...state,
         loggingIn: false,
         loggedIn: true,
       }
-    case 'USER_LOGIN_FAILED':
+    case USER_LOGIN_FAILED:
       return {
         ...state,
         failed: true,

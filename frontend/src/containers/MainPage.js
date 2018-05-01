@@ -1,11 +1,15 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import ChatRoom from './ChatRoom'
 
-class App extends Component {
+class MainPage extends Component {
   render() {
     return (
-      <div>Main Page!</div>
+     <ChatRoom/>
     )
   }
 }
 
-export default App
+const mapStateToProps = state => state
+
+export default connect(mapStateToProps)(MainPage)
