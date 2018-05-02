@@ -30,7 +30,7 @@ export const connectUserToChatRoom = ({user, chatRoom}) => (dispatch) => {
     payload: {user, chatRoom},
   })
 
-  userChatRoomSocket(user, chatRoom, dispatch)
+  // userChatRoomSocket(user, chatRoom, dispatch)
 }
 
 export const sendMessage = (socket, messageInfo) => dispatch => {

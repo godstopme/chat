@@ -60,4 +60,5 @@ const mapDispatchToProps = dispatch => ({
   connectUser: connectUserToChatRoom
 })
 
-export default connect(mapStateToProps, {connectUserToChatRoom})(Channel)
+// export default connect(mapStateToProps, {connectUserToChatRoom})(Channel)
+export default Channel

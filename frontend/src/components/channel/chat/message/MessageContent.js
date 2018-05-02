@@ -1,12 +1,25 @@
 import React, {Component} from 'react'
 import Grid from 'material-ui/Grid'
+import Typography from 'material-ui/Typography'
+
+const ContentHeader = (props) =>
+  <Grid item>
+    <Typography variant="title" align="left">
+      Message content header
+    </Typography>
+    <Typography variant="subheading" align="left">
+      14:22
+    </Typography>
+  </Grid>
 
 export default class MessageContent extends Component {
   render() {
     return (
       <Grid container direction="column">
         <Grid item>
-          <h1>Message content header</h1>
+          <Grid container>
+            <ContentHeader/>
+          </Grid>
         </Grid>
         <Grid item>
           <p>Message content</p>

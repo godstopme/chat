@@ -7,7 +7,6 @@ import ChatHistory from './ChatHistory'
 import ChatUserBlock from './ChatUserBlock'
 
 import {sendMessage} from '../../../actions/ChatRoom'
-import {connectUserToChatRoom} from '../../../actions/ChatRoom'
 
 class Chat extends Component {
   componentDidMount() {
@@ -43,8 +42,8 @@ const mapStateToProps = ({chatRoom}) => {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  connectUser: connectUserToChatRoom
-})
+// const mapDispatchToProps = dispatch => ({
+//   connectUser: connectUserToChatRoom
+// })
 
-export default connect(mapStateToProps, {connectUserToChatRoom})(Chat)
+export default connect(mapStateToProps)(Chat)
