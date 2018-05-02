@@ -1,30 +1,33 @@
 import React, {Component} from 'react'
 import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
+import styled from 'styled-components'
+import {Paper} from '../../../common/blocks'
 
-const ContentHeader = (props) =>
-  <Grid item>
-    <Typography variant="title" align="left">
-      Message content header
-    </Typography>
-    <Typography variant="subheading" align="left">
-      14:22
-    </Typography>
-  </Grid>
+const MessageTime = styled('span')`
+  font-weight: 300;
+  color: #aaaaaa;
+  font-size: 1rem;
+`
+const MessageContentHeader = (props) =>
+  <Typography variant="title" align="left">
+    Message content header <MessageTime>14:22</MessageTime>
+  </Typography>
+
+const MessageText = (props) =>
+  <Typography component="p" gutterBottom>
+    Message contentMessage contentMessage contentMessage contentMessage contentMessage content
+    Message contentMessage contentMessageasdf contentMessageasdf contentMessage contentMessage contentfsdf
+    Message contentMessage contentMessage contentMessage contentMessage contentMessage content
+  </Typography>
 
 export default class MessageContent extends Component {
   render() {
     return (
-      <Grid container direction="column">
-        <Grid item>
-          <Grid container>
-            <ContentHeader/>
-          </Grid>
-        </Grid>
-        <Grid item>
-          <p>Message content</p>
-        </Grid>
-      </Grid>
+      <Paper column>
+        <MessageContentHeader/>
+        <MessageText/>
+      </Paper>
     )
   }
 }

@@ -8,5 +8,7 @@ const Avatar = styled(MaterialUiAvatar)`
   }
 `
 
-export default props =>
-  <Avatar {...props}/>
+export default ({...props, children}) =>
+  <Avatar {...props}>
+    {children}
+  </Avatar>
