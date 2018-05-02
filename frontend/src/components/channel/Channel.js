@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-import {Grid, Row, Col} from 'react-bootstrap'
+// import {Grid, Row, Col} from 'react-bootstrap'
+import Grid from 'material-ui/Grid'
 
 import ChannelHeader from './ChannelHeader'
 import ChannelInfo from './ChannelInfo'
@@ -9,31 +10,40 @@ import Chat from './chat'
 
 import {sendMessage} from '../../actions/ChatRoom'
 import {connectUserToChatRoom} from '../../actions/ChatRoom'
+import styled from 'styled-components'
 
-class ChatRoom extends Component {
+const Container = styled(Grid).attrs({
+  container: true,
+  justify: 'center',
+})`
+  && {
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+`
+
+class Channel extends Component {
   componentDidMount() {
     const {user, connectUserToChatRoom} = this.props
 
-    connectUserToChatRoom({user, chatRoom: 'main'})
+    // connectUserToChatRoom({user, chatRoom: 'main'})
   }
 
   render() {
     return (
-      <Grid>
-        <Row>
-          <Col xs={12}>
-            <ChannelHeader/>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={8}>
+      <Container>
+        <Grid item xs={12}>
+          <ChannelHeader/>
+        </Grid>
+        <Grid container>
+          <Grid item xs={8}>
             <Chat/>
-          </Col>
-          <Col xs={4}>
+          </Grid>
+          <Grid item xs={4}>
             <ChannelInfo/>
-          </Col>
-        </Row>
-      </Grid>
+          </Grid>
+        </Grid>
+      </Container>
     )
   }
 }
@@ -50,4 +60,4 @@ const mapDispatchToProps = dispatch => ({
   connectUser: connectUserToChatRoom
 })
 
-export default connect(mapStateToProps, {connectUserToChatRoom})(ChatRoom)
+export default connect(mapStateToProps, {connectUserToChatRoom})(Channel)
