@@ -11,7 +11,7 @@ const submitForm = e => {
   e.preventDefault()
 }
 
-const CenteredForm = styled('from')`
+const CenteredForm = styled('form')`
   position: fixed;
   
   top: 30%;
@@ -40,8 +40,9 @@ export default class AuthForm extends Component {
     e.preventDefault()
 
     if (onSubmit) {
-      const nickname = e.target.elements.nickname.value
-      const password = e.target.elements.password.value
+      const nickname = this.nickname.value
+      const password = this.password.value
+      console.log(this.password)
 
       onSubmit({nickname, password})
     }
@@ -63,12 +64,14 @@ export default class AuthForm extends Component {
           <Input
             type="text"
             placeholder="nickname"
+            inputRef={(input) => this.nickname = input}
           />
         </FormControl>
         <FormControl>
           <Input
             type={this.state.showPassword ? 'text' : 'password'}
             placeholder="password"
+            inputRef={(input) => this.password = input}
             endAdornment={
               <InputAdornment position="end">
                 <PasswordIconButton
