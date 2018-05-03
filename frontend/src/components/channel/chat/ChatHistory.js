@@ -7,12 +7,7 @@ export default class ChatHistory extends Component {
     const {messages} = this.props
 
     return (
-      <Grid container direction="column" spacing={8}>
-        {/*{messages.map(({text, user}, i) =>*/}
-          {/*<Grid item xs={12} key={i}>*/}
-            {/*<ChatMessage message={text} author={user.nickname}/>*/}
-          {/*</Grid>*/}
-        {/*)}*/}
+      <Grid container direction="column">
         <Grid item xs={12}>
           <ChatMessage/>
         </Grid>

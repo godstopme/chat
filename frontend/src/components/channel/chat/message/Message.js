@@ -1,6 +1,4 @@
 import React, {Component} from 'react'
-import Grid from 'material-ui/Grid'
-import Card from 'material-ui/Card'
 import Typography from 'material-ui/Typography'
 import {CardContent, CardHeader, CardActions} from 'material-ui/Card'
 import Avatar from '../../../common/user/Avatar'

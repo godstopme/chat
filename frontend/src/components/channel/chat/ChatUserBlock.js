@@ -1,6 +1,21 @@
 import React, {Component} from 'react'
-import {Button, Form} from 'react-bootstrap'
-import {FormControl, FormGroup} from 'react-bootstrap'
+import Input from 'material-ui/Input'
+import styled from 'styled-components'
+
+const StyledInput = styled(Input).attrs({
+  fullWidth: true,
+  autoFocus: true,
+  placeholder: 'Type a message...',
+  name: 'message'
+})`
+  && {
+    &:after, &:before {
+      display: none;
+    }
+  }
+`
+
+
 
 export default class ChatUserBlock extends Component {
   constructor(props) {
@@ -10,26 +25,19 @@ export default class ChatUserBlock extends Component {
   }
 
   userInputHandler(e) {
-    if (e.key === 'Enter' && this.input.value) {
+    if (e.key === 'Enter' && this.userMessageInput.value) {
       const {socket, onUserInput} = this.props
-      console.log('on user input', onUserInput)
-      onUserInput({message: this.input.value})
+
+      onUserInput({message: this.userMessageInput.value})
     }
   }
 
   render() {
     return (
-      <Form onSubmit={(e) => e.preventDefault()}>
-        <FormGroup>
-          <FormControl type="text"
-                       inputRef={ref => this.input = ref }
-                       placeholder="Напишите сообщение..."
-                       autoFocus={true}
-                       onKeyPress={this.userInputHandler}
-          />
-          {/*<Button onClick={this.userInputHandler} type="submit"/>*/}
-        </FormGroup>
-      </Form>
+      <StyledInput
+        inputRef={(input) => this.userMessageInput = input}
+        inputProps={{onKeyPress: this.userInputHandler}}
+      />
     )
   }
 }
