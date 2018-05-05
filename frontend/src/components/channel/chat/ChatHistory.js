@@ -8,19 +8,11 @@ export default class ChatHistory extends Component {
 
     return (
       <Grid container direction="column">
-        {chatHistory.map(chatMessage => {
-          console.log('rendering chatmessage', chatMessage)
-            return (<Grid item xs={12}>
-              <ChatMessage user={chatMessage.user} message={chatMessage.content}/>
-            </Grid>)
-          }
+        {chatHistory.map(chatMessage =>
+          <Grid item xs={12}>
+            <ChatMessage user={chatMessage.user} message={chatMessage.content}/>
+          </Grid>
         )}
-        {/*<Grid item xs={12}>*/}
-          {/*<ChatMessage/>*/}
-        {/*</Grid>*/}
-        {/*<Grid item xs={12}>*/}
-          {/*<ChatMessage/>*/}
-        {/*</Grid>*/}
       </Grid>
     )
   }

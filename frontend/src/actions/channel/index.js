@@ -18,13 +18,12 @@ export const connectUserToChatRoom = ({user, chatRoom}) => (dispatch) => {
     })
   }
 
-  socket.onmessage = data => {
-    console.log(data)
-    const message = JSON.parse(data)
+  socket.onmessage = event => {
+    const message = JSON.parse(event.data)
 
     dispatch({
       type: CHAT_ROOM_MESSAGE_RECEIVED,
-      payload: {user, socket, message}
+      payload: message
     })
   }
 }

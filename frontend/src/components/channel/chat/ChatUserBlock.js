@@ -29,6 +29,7 @@ export default class ChatUserBlock extends Component {
       const {socket, onUserInput} = this.props
 
       onUserInput({content: this.userMessageInput.value})
+      this.userMessageInput.value = ''
     }
   }
 

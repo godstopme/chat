@@ -8,16 +8,26 @@ import {connectUserToChatRoom} from '../../../actions/channel'
 import {sendMessage} from '../../../actions/channel/chat'
 
 class Chat extends Component {
+  constructor(props) {
+    super(props)
+
+    this.sendMessage = this.sendMessage.bind(this)
+  }
+
   componentDidMount() {
     const {user, connectUserToChatRoom} = this.props
 
     connectUserToChatRoom({user, chatRoom: 'main'})
   }
 
+  sendMessage(message) {
+    const {user, socket, sendMessage} = this.props
+
+    sendMessage(socket, {...message, user})
+  }
+
   render() {
     const {user, socket, chatHistory} = this.props
-    console.log('chat props: ', user, socket, chatHistory)
-    const {sendMessage} = this.props
 
     return (
       <Grid container>
@@ -25,10 +35,7 @@ class Chat extends Component {
           <ChatHistory user={user} socket={socket} chatHistory={chatHistory} />
         </Grid>
         <Grid item xs={12}>
-          <ChatUserBlock
-            user={user} socket={socket}
-            onUserInput={(message) => sendMessage(socket, {...message, user})}
-          />
+          <ChatUserBlock user={user} socket={socket} onUserInput={this.sendMessage} />
         </Grid>
       </Grid>
     )

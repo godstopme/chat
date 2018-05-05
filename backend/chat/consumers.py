@@ -15,10 +15,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_discard(self.group_name, self.channel_name)
 
     async def receive(self, text_data=None, bytes_data=None):
+        message_data = json.loads(text_data)
         payload = {
             'type': 'send_message',
-            'username': self.scope['user'].username,
-            'message': json.loads(text_data)['message'],
+            'user': {'nickname': message_data['user']['nickname']},
+            'content': message_data['content'],
             'datetime': datetime.now().isoformat(),
         }
 
