@@ -1,5 +1,6 @@
 import {USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAILED} from '../constants/auth/login'
-import {login} from '../services/AuthService'
+import {authenticate, login} from '../services/AuthService'
+import {USER_AUTHENTICATED} from '../constants/auth/index'
 
 export const loginUser = ({nickname, password}) => async (dispatch) => {
   dispatch({type: USER_LOGIN_REQUEST})
@@ -16,5 +17,14 @@ export const loginUser = ({nickname, password}) => async (dispatch) => {
       type: USER_LOGIN_FAILED,
       payload: error.data.detail
     })
+  }
+}
+
+export const authenticateUser = () => {
+  const authUserData = authenticate()
+
+  return {
+    type: USER_AUTHENTICATED,
+    payload: {...authUserData},
   }
 }

@@ -22,6 +22,11 @@ export const login = ({nickname, password}) => {
   )
 }
 
+export const authenticate = () => {
+  if (isAuthenticated())
+    return JSON.parse(localStorage.user)
+}
+
 export const logout = () => (
   axios.post('/api/accounts/user/logout/')
     .then(response => {

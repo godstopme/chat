@@ -1,3 +1,4 @@
+import {USER_AUTHENTICATED} from '../constants/auth/index'
 import {USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAILED} from '../constants/auth/login'
 
 const initialState = {
@@ -15,6 +16,7 @@ export const userLogin = (state = initialState, action) => {
         ...state,
         loggingIn: true,
       }
+    case USER_AUTHENTICATED:
     case USER_LOGIN_SUCCESS:
       return {
         ...state,
