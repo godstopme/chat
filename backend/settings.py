@@ -26,7 +26,7 @@ DATA_DIR = join(RUN_DIR, DATA_DIR_NAME)
 
 SECRET_KEY = 'ol6m-3&yn5*n9p69!@a+9j55*44cwry(lisw(m!qz5wc2qfqw$'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 VENDOR_APPS = [
     'channels',

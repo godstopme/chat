@@ -8,7 +8,8 @@ export const connectUserToChatRoom = ({user, chatRoom}) => (dispatch) => {
   // })
 
   console.log('connectin . . .')
-  let socket = new WebSocket(`ws://127.0.0.1:3000/ws/chat/`)
+  // let socket = new WebSocket(`ws://127.0.0.1:3000/ws/chat/`)
+  let socket = new WebSocket(`ws://${window.location.host}/ws/chat/`)
 
   socket.onopen = () => {
     console.log('opened socket', socket)
