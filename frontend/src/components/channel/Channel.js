@@ -8,8 +8,6 @@ import ChannelHeader from './ChannelHeader'
 import ChannelInfo from './ChannelInfo'
 import Chat from './chat'
 
-import {sendMessage} from '../../actions/ChatRoom'
-import {connectUserToChatRoom} from '../../actions/ChatRoom'
 import styled from 'styled-components'
 
 const Container = styled(Grid).attrs({
@@ -50,15 +48,12 @@ class Channel extends Component {
 
 const mapStateToProps = ({chatRoom}) => {
   return {
-    user: chatRoom.user,
+    user: chatRoom.auth.user,
     socket: chatRoom.socket,
     messages: chatRoom.messages,
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  connectUser: connectUserToChatRoom
-})
 
 // export default connect(mapStateToProps, {connectUserToChatRoom})(Channel)
 export default Channel

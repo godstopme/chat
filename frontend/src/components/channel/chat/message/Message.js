@@ -10,12 +10,12 @@ import {Paper} from '../../../common/blocks'
 
 export default class Message extends Component {
   render() {
-    const {message, author} = this.props
+    const {user, message} = this.props
 
     return (
       <Paper>
         <Avatar>R T</Avatar>
-        <MessageContent/>
+        <MessageContent nickname={user.nickname} message={message}/>
       </Paper>
     )
   }

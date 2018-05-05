@@ -4,7 +4,7 @@ import Input from 'material-ui/Input'
 import Typography from 'material-ui/Typography'
 import { InputAdornment } from 'material-ui/Input'
 import { FormControl } from 'material-ui/Form'
-import PasswordIconButton from '../common/icons/PasswrdIconButton'
+import PasswordIconButton from '../common/icons/PasswordconButton'
 import styled from 'styled-components'
 
 const submitForm = e => {

@@ -5,10 +5,11 @@ export const loginUser = ({nickname, password}) => async (dispatch) => {
   dispatch({type: USER_LOGIN_REQUEST})
 
   try {
-    const response = await login({nickname, password})
+    const loginData = await login({nickname, password})
+
     dispatch({
       type: USER_LOGIN_SUCCESS,
-      payload: response.data,
+      payload: {...loginData},
     })
   } catch(error) {
     dispatch({

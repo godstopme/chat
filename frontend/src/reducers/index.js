@@ -1,7 +1,9 @@
 import {combineReducers} from 'redux'
 import {userLogin} from './userLogin'
-import chatRoom from './ChatRoom'
+import channel from './channel/channel'
+import chatRoom from './channel/chat/ChatRoom'
 
 export default combineReducers({
-  userLogin, chatRoom
+  auth: userLogin,
+  channel, chatRoom,
 })

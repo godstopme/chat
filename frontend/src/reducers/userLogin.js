@@ -5,6 +5,7 @@ const initialState = {
   loggingIn: false,
   loggedIn: false,
   detail: '',
+  user: {},
 }
 
 export const userLogin = (state = initialState, action) => {
@@ -19,6 +20,7 @@ export const userLogin = (state = initialState, action) => {
         ...state,
         loggingIn: false,
         loggedIn: true,
+        user: {...action.payload},
       }
     case USER_LOGIN_FAILED:
       return {

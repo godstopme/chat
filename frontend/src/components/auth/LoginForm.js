@@ -16,6 +16,6 @@ const LoginForm = ({failed, loggingIn, loggedIn, detail, loginUser}) =>
       </AuthForm>
     </ConcealingSpinner>
 
-const mapStateToProps = state => state.userLogin
+const mapStateToProps = state => state.auth
 
 export default connect(mapStateToProps, {loginUser})(LoginForm)

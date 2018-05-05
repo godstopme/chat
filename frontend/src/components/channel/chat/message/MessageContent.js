@@ -9,24 +9,24 @@ const MessageTime = styled('span')`
   color: #aaaaaa;
   font-size: 1rem;
 `
-const MessageContentHeader = (props) =>
+const MessageContentHeader = ({nickname, time}) =>
   <Typography variant="title" align="left">
-    Message content header <MessageTime>14:22</MessageTime>
+    {nickname} <MessageTime>{time}</MessageTime>
   </Typography>
 
-const MessageText = (props) =>
+const MessageText = ({text}) =>
   <Typography component="p" gutterBottom>
-    Message contentMessage contentMessage contentMessage contentMessage contentMessage content
-    Message contentMessage contentMessageasdf contentMessageasdf contentMessage contentMessage contentfsdf
-    Message contentMessage contentMessage contentMessage contentMessage contentMessage content
+    {text}
   </Typography>
 
 export default class MessageContent extends Component {
   render() {
+    const {nickname, message} = this.props
+
     return (
       <Paper column>
-        <MessageContentHeader/>
-        <MessageText/>
+        <MessageContentHeader nickname={nickname}/>
+        <MessageText text={message}/>
       </Paper>
     )
   }

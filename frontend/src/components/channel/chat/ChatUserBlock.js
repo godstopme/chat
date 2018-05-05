@@ -28,7 +28,7 @@ export default class ChatUserBlock extends Component {
     if (e.key === 'Enter' && this.userMessageInput.value) {
       const {socket, onUserInput} = this.props
 
-      onUserInput({message: this.userMessageInput.value})
+      onUserInput({content: this.userMessageInput.value})
     }
   }
 

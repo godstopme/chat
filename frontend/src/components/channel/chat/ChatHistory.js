@@ -4,16 +4,23 @@ import Grid from 'material-ui/Grid'
 
 export default class ChatHistory extends Component {
   render() {
-    const {messages} = this.props
+    const {chatHistory} = this.props
 
     return (
       <Grid container direction="column">
-        <Grid item xs={12}>
-          <ChatMessage/>
-        </Grid>
-        <Grid item xs={12}>
-          <ChatMessage/>
-        </Grid>
+        {chatHistory.map(chatMessage => {
+          console.log('rendering chatmessage', chatMessage)
+            return (<Grid item xs={12}>
+              <ChatMessage user={chatMessage.user} message={chatMessage.content}/>
+            </Grid>)
+          }
+        )}
+        {/*<Grid item xs={12}>*/}
+          {/*<ChatMessage/>*/}
+        {/*</Grid>*/}
+        {/*<Grid item xs={12}>*/}
+          {/*<ChatMessage/>*/}
+        {/*</Grid>*/}
       </Grid>
     )
   }

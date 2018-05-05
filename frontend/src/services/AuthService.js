@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const isAuthenticated = () => localStorage.token !== undefined && localStorage.token !== ''
+export const isAuthenticated = () => localStorage.user && localStorage.user.token !== ''
 
 export const signup = credentials => axios.post('/api/accounts/users/signup/', credentials)
 
@@ -8,16 +8,17 @@ export const login = ({nickname, password}) => {
   return (!isAuthenticated()) ? (
     axios.post('/api/accounts/user/login/', {nickname, password})
       .then(response => {
+        localStorage.user = JSON.stringify(response.data)
+
         const {token} = response.data
-        localStorage.token = token
         axios.defaults.headers.common['Authorization'] = `JWT ${token}`
 
-        return token
+        return response.data
       })
   ) : (
-    Promise.resolve({
-      token: localStorage.token,
-    })
+    Promise.resolve(
+      JSON.parse(localStorage.user)
+    )
   )
 }
 
