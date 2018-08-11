@@ -1,4 +1,4 @@
-# chat
+# interview task
 
 ### how to install
 
