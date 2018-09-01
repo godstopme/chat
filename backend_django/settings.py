@@ -15,7 +15,7 @@ DATA_DIR_NAME = 'data'
 APP_DIR = dirname(abspath(__file__))
 
 PROJECT_DIR = dirname(APP_DIR)
-
+print(PROJECT_DIR)
 RUN_DIR = join(PROJECT_DIR, RUN_DIR_NAME)
 
 STATIC_DIR = join(RUN_DIR, STATIC_DIR_NAME)
@@ -23,6 +23,7 @@ STATIC_DIR = join(RUN_DIR, STATIC_DIR_NAME)
 MEDIA_DIR = join(RUN_DIR, MEDIA_DIR_NAME)
 
 DATA_DIR = join(RUN_DIR, DATA_DIR_NAME)
+print(DATA_DIR)
 
 SECRET_KEY = 'ol6m-3&yn5*n9p69!@a+9j55*44cwry(lisw(m!qz5wc2qfqw$'
 
